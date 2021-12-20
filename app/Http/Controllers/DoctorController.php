@@ -22,7 +22,8 @@ class DoctorController extends Controller
         } else {
             $doctors = Doctor::where('user_id', Auth::user()->id)->paginate(10);
         }
-//        dd($doctors);
+        // dd($doctors);
+        // dd($doctors[1]->hospital);
         return view('admin.doctor.index', compact('doctors'));
     }
 

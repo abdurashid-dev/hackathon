@@ -19,7 +19,9 @@
                 <tr>
                     <th>ID</th>
                     <th>FIO</th>
-                    <th>Shifoxonasi</th>
+                    @if (Auth::user()->role == 'admin')
+                        <th>Shifoxonasi</th>
+                    @endif
                     <th>Lavozimi</th>
                     <th>Harakatlar</th>
                 </tr>
@@ -27,7 +29,9 @@
                     <tr>
                         <td>{{$doctor->id}}</td>
                         <td>{{$doctor->name}}</td>
-                        <td>{{$doctor->hospital->name}}</td>
+                        @if (Auth::user()->role == 'admin')
+                            <td>{{$doctor->hospital->name}}</td>                        
+                        @endif
                         <td>{{$doctor->position}}</td>
                         <td>
                             <div class="btn-group">

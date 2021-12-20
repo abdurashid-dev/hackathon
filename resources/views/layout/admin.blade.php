@@ -62,7 +62,7 @@
             <!-- Navbar Search -->
             <form id="logout-form" action="{{ route('logout') }}" method="POST">
                 @csrf
-                <button class="btn btn-secondary">Chiqish</button>
+                <button class="btn btn-secondary "><i class="fas fa-sign-out-alt"></i> Chiqish</button>
             </form>
             <li class="nav-item">
                 <a class="nav-link" data-widget="fullscreen" href="#" role="button">
