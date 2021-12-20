@@ -16,8 +16,9 @@ class AdminController extends Controller
     {
         if (Auth::user()->role == 'admin'){
             $doctors = Doctor::all();
+        }else{
+            $doctors = Doctor::where('user_id', Auth::user()->id);
         }
-        $doctors = Doctor::where('user_id', Auth::user()->id);
         $hospitals = User::where('role', 'hospital')->get();
         return view('admin.index', compact('hospitals', 'doctors'));
     }
