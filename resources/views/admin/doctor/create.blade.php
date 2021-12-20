@@ -3,99 +3,68 @@
     Hospital
 @stop
 @section('content')
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-8">
-                <div class="card">
-                    <div class="card-header">
-                        <div class="row">
-                            <div class="col-md-6 col-sm-12">
-                                <a class="btn btn-sm btn-primary" href="{{route('admin.doctor.index')}}"><i class="fas fa-arrow-left"></i> Back</a>
-                            </div>
-                            <div class="col-md-6 col-sm-12">
-                                Add doctors
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="card-body">
-                        <form method="POST" action="{{ route('admin.doctor.store') }}">
-                            @csrf
-
-                            <div class="row mb-3">
-                                <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
-
-                                <div class="col-md-6">
-                                    <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
-
-                                    @error('name')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                    @enderror
-                                </div>
-                            </div>
-
-                            <div class="row mb-3">
-                                <label for="phone" class="col-md-4 col-form-label text-md-right">{{ __('Phone number') }}</label>
-
-                                <div class="col-md-6">
-                                    <input id="phone" type="phone" class="form-control @error('phone') is-invalid @enderror" name="phone" value="{{ old('phone') }}" required autocomplete="phone">
-
-                                    @error('phone')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                    @enderror
-                                </div>
-                            </div>
-
-                            <div class="row mb-3">
-                                <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
-
-                                <div class="col-md-6">
-                                    <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
-
-                                    @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                    @enderror
-                                </div>
-                            </div>
-
-                            <div class="row mb-3">
-                                <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }}</label>
-
-                                <div class="col-md-6">
-                                    <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
-                                </div>
-                            </div>
-                            <div class="row mb-3">
-                                <label for="position" class="col-md-4 col-form-label text-md-right">{{ __('Position') }}</label>
-
-                                <div class="col-md-6">
-                                    <input id="position" type="text" class="form-control @error('position') is-invalid @enderror" name="position" value="{{ old('position') }}" required autofocus>
-
-                                    @error('position')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                    @enderror
-                                </div>
-                            </div>
-                            <input type="hidden" name="user_id" value="{{Auth()->user()->id}}">
-                            <div class="row mb-0">
-                                <div class="col-md-6 offset-md-4">
-                                    <button type="submit" class="btn btn-primary">
-                                        {{ __('Create') }}
-                                    </button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
+<div class="card">
+    <div class="card-header">
+        <div class="row">
+            <div class="col-md-6 col-sm-12">
+                Doktor qo'shish
+            </div>
+            <div class="col-md-6 col-sm-12 text-end">
+                <a class="btn btn-sm btn-primary" href="{{route('admin.doctor.index')}}"><i class="fas fa-arrow-left"></i> Orqaga</a>
             </div>
         </div>
     </div>
+    <div class="card-body">
+        <!-- form start -->
+        <form method="POST" action="{{ route('admin.doctor.store') }}" enctype="multipart/form-data">
+            @csrf
+
+            <div class="form-group mt-3">
+                <label>FIO</label>
+                <input type="text" required class="form-control" name="name">
+            </div>
+            @error ('name')
+            <p class="text-danger">* {{$message}}</p>
+            @enderror
+            <div class="form-group mt-3">
+                <label>Telefon raqami</label>
+                <input type="text" required class="form-control" name="phone">
+            </div>
+            @error ('phone')
+            <p class="text-danger">* {{$message}}</p>
+            @enderror
+            <div class="form-group mt-3">
+                <label>Parol</label>
+                <input type="text" required class="form-control" name="password">
+            </div>
+            @error ('password')
+            <p class="text-danger">* {{$message}}</p>
+            @enderror
+            <div class="form-group mt-3">
+                <label>Parolni takrorlang</label>
+                <input type="text" required class="form-control" name="password_confirmation">
+            </div>
+            @error ('password_confirmation')
+            <p class="text-danger">* {{$message}}</p>
+            @enderror
+            <div class="form-group mt-3">
+                <label>Lavozimi</label>
+                <input type="text" required class="form-control" name="position">
+            </div>
+            @error ('position')
+            <p class="text-danger">* {{$message}}</p>
+            @enderror
+            <input type="hidden" name="user_id" value="{{Auth::user()->id}}">
+            <div class="form-group mt-3">
+                <label>Rasm (ixtiyoriy)</label>
+                <input type="file" class="form-control" name="image">
+            </div>
+            @error ('image')
+            <p class="text-danger">* {{$message}}</p>
+            @enderror
+            <button type="submit" class="btn btn-primary">Saqlash</button>
+        </form>
+        {{--end form--}}
+    </div>
+</div>
 @stop

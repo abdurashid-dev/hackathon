@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Doctor;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class DoctorController extends Controller
 {
@@ -15,7 +16,7 @@ class DoctorController extends Controller
      */
     public function index()
     {
-        $doctors = Doctor::all();
+        $doctors = Doctor::paginate(10);
         return view('admin.doctor.index', compact('doctors'));
     }
 
@@ -37,7 +38,23 @@ class DoctorController extends Controller
      */
     public function store(Request $request)
     {
+//        dd($request);
+        $data = $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'position' => ['required', 'string', 'max:255'],
+            'phone' => ['required', 'string', 'max:255'],
+            'user_id' => ['required', 'string', 'max:255'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'token' => ['required'],
+        ]);
 
+        $data['password'] = Hash::make($data['password']);
+        $data['token'] = Hash::make($data['_token']);
+        if($request->has('image')){
+            $data['image'] = $this->imageUpload($request,'uploads/doctor');
+        }
+        Doctor::create($data);
+        return redirect()->route('admin.doctor.index')->with('message', 'Successfully added');
     }
 
     /**
@@ -48,7 +65,7 @@ class DoctorController extends Controller
      */
     public function show(Doctor $doctor)
     {
-        //
+        return view('admin.doctor.show', compact('doctor'));
     }
 
     /**
@@ -59,7 +76,7 @@ class DoctorController extends Controller
      */
     public function edit(Doctor $doctor)
     {
-        //
+        return view('admin.doctor.edit', compact('doctor'));
     }
 
     /**
@@ -71,7 +88,21 @@ class DoctorController extends Controller
      */
     public function update(Request $request, Doctor $doctor)
     {
-        //
+        $data = $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'position' => ['required', 'string', 'max:255'],
+            'phone' => ['required', 'string', 'max:255'],
+            'user_id' => ['required', 'string', 'max:255'],
+            'token' => ['required'],
+        ]);
+
+        $data['password'] = Hash::make($data['password']);
+        $data['token'] = Hash::make($data['_token']);
+        if($request->has('image')){
+            $data['image'] = $this->imageUpload($request,'uploads/doctor');
+        }
+        Doctor::create($data);
+        return redirect()->route('admin.doctor.index')->with('message', 'Successfully added');
     }
 
     /**

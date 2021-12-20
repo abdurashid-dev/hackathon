@@ -1,13 +1,13 @@
 @extends('layout.admin')
 @section('title')
-    Hospitals
+    Doctors
 @stop
 @section('content')
     <div class="card">
         <div class="card-header">
             <div class="row">
                 <div class="col-md-6 col-sm-12">
-                    Doctors
+                    Shifokorlar
                 </div>
                 <div class="col-md-6 col-sm-12 text-end">
                     <a class="btn btn-sm btn-primary" href="{{route('admin.doctor.create')}}"><i class="fas fa-plus"></i> Add</a>
@@ -29,15 +29,15 @@
                         <td>{{$doctor->position}}</td>
                         <td>
                             <div class="btn-group">
-                                <a href="{{ route('admin.hospital.show', $doctor->id) }}" type="button"
+                                <a href="{{ route('admin.doctor.show', $doctor->id) }}" type="button"
                                    class="btn btn-primary btn-flat">
                                     <i class="fas fa-eye"></i>
                                 </a>
-                                <a href="{{ route('admin.hospital.edit', $doctor->id) }}" type="button"
+                                <a href="{{ route('admin.doctor.edit', $doctor->id) }}" type="button"
                                    class="btn btn-success btn-flat">
                                     <i class="fas fa-edit"></i>
                                 </a>
-                                <form action="{{route('admin.hospital.destroy',$doctor->id)}}" method="POST">
+                                <form action="{{route('admin.doctor.destroy',$doctor->id)}}" method="POST">
                                     @csrf
                                     @method('DELETE')
                                     <button onclick="return confirm('Are you sure ?')"

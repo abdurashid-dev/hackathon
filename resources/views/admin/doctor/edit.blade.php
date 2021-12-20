@@ -3,102 +3,54 @@
     Hospital
 @stop
 @section('content')
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-8">
-                <div class="card">
-                    <div class="card-header">
-                        <div class="row">
-                            <div class="col-md-6 col-sm-12">
-                                <a class="btn btn-sm btn-primary" href="{{route('admin.hospital.index')}}"><i class="fas fa-arrow-left"></i> Back</a>
-                            </div>
-                            <div class="col-md-6 col-sm-12">
-                                Register
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="card-body">
-                        <form method="POST" action="{{ route('admin.hospital.update', $hospital->id) }}">
-                            @csrf
-
-                            <div class="row mb-3">
-                                <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
-
-                                <div class="col-md-6">
-                                    <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ $hospital->name }}" required autocomplete="name" autofocus>
-
-                                    @error('name')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                    @enderror
-                                </div>
-                            </div>
-
-                            <div class="row mb-3">
-                                <label for="phone" class="col-md-4 col-form-label text-md-right">{{ __('Phone number') }}</label>
-
-                                <div class="col-md-6">
-                                    <input id="phone" type="phone" class="form-control @error('phone') is-invalid @enderror" name="phone" value="{{ $hospital->phone }}" required autocomplete="phone">
-
-                                    @error('phone')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                    @enderror
-                                </div>
-                            </div>
-                            <div class="row mb-3">
-                                <label for="latitude" class="col-md-4 col-form-label text-md-right">{{ __('Latitude') }}</label>
-
-                                <div class="col-md-6">
-                                    <input id="latitude" type="text" class="form-control @error('latitude') is-invalid @enderror" name="latitude" value="{{ $hospital->latitude }}" required autofocus>
-
-                                    @error('latitude')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                    @enderror
-                                </div>
-                            </div>
-                            <div class="row mb-3">
-                                <label for="longitude" class="col-md-4 col-form-label text-md-right">{{ __('Longitude') }}</label>
-
-                                <div class="col-md-6">
-                                    <input id="longitude" type="text" class="form-control @error('longitude') is-invalid @enderror" name="longitude" value="{{ $hospital->longitude }}" required autofocus>
-
-                                    @error('longitude')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                    @enderror
-                                </div>
-                            </div>
-                            <div class="row mb-3">
-                                <label for="address" class="col-md-4 col-form-label text-md-right">{{ __('Address') }}</label>
-
-                                <div class="col-md-6">
-                                    <input id="address" type="text" class="form-control @error('address') is-invalid @enderror" name="address" value="{{ $hospital->address }}" required autofocus>
-
-                                    @error('address')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                    @enderror
-                                </div>
-                            </div>
-                            <div class="row mb-0">
-                                <div class="col-md-6 offset-md-4">
-                                    <button type="submit" class="btn btn-primary">
-                                        {{ __('Save') }}
-                                    </button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
+    <div class="card">
+        <div class="card-header">
+            <div class="row">
+                <div class="col-md-6 col-sm-12">
+                    Doktor tahrirlash
+                </div>
+                <div class="col-md-6 col-sm-12 text-end">
+                    <a class="btn btn-sm btn-primary" href="{{route('admin.doctor.index')}}"><i class="fas fa-arrow-left"></i> Orqaga</a>
                 </div>
             </div>
+        </div>
+        <div class="card-body">
+            <!-- form start -->
+            <form method="POST" action="{{ route('admin.doctor.update', $doctor->id) }}" enctype="multipart/form-data">
+                @csrf
+
+                <div class="form-group mt-3">
+                    <label>FIO</label>
+                    <input type="text" required class="form-control" name="name" value="{{$doctor->name}}">
+                </div>
+                @error ('name')
+                <p class="text-danger">* {{$message}}</p>
+                @enderror
+                <div class="form-group mt-3">
+                    <label>Telefon raqami</label>
+                    <input type="text" required class="form-control" name="phone" value="{{$doctor->phone}}">
+                </div>
+                @error ('phone')
+                <p class="text-danger">* {{$message}}</p>
+                @enderror
+                <div class="form-group mt-3">
+                    <label>Lavozimi</label>
+                    <input type="text" required class="form-control" name="position" value="{{$doctor->position}}">
+                </div>
+                @error ('position')
+                <p class="text-danger">* {{$message}}</p>
+                @enderror
+                <input type="hidden" name="user_id" value="{{Auth::user()->id}}">
+                <div class="form-group mt-3">
+                    <label>Rasm (ixtiyoriy)</label>
+                    <input type="file" class="form-control" name="image">
+                </div>
+                @error ('image')
+                <p class="text-danger">* {{$message}}</p>
+                @enderror
+                <button type="submit" class="btn btn-primary">Saqlash</button>
+            </form>
+            {{--end form--}}
         </div>
     </div>
 @stop
