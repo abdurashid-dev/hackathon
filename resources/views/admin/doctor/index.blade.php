@@ -7,10 +7,10 @@
         <div class="card-header">
             <div class="row">
                 <div class="col-md-6 col-sm-12">
-                    Hospitals
+                    Doctors
                 </div>
                 <div class="col-md-6 col-sm-12 text-end">
-                    <a class="btn btn-sm btn-primary" href="{{route('admin.hospital')}}"><i class="fas fa-plus"></i> Add</a>
+                    <a class="btn btn-sm btn-primary" href="{{route('admin.doctor.create')}}"><i class="fas fa-plus"></i> Add</a>
                 </div>
             </div>
         </div>
@@ -19,25 +19,25 @@
                 <tr>
                     <th>ID</th>
                     <th>Name</th>
-                    <th>Phone</th>
+                    <th>Position</th>
                     <th>Actions</th>
                 </tr>
-                @foreach($hospitals as $hospital)
+                @foreach($doctors as $doctor)
                     <tr>
-                        <td>{{$hospital->id}}</td>
-                        <td>{{$hospital->name}}</td>
-                        <td>{{$hospital->phone}}</td>
+                        <td>{{$doctor->id}}</td>
+                        <td>{{$doctor->name}}</td>
+                        <td>{{$doctor->position}}</td>
                         <td>
                             <div class="btn-group">
-                                <a href="{{ route('admin.hospital.show', $hospital->id) }}" type="button"
+                                <a href="{{ route('admin.hospital.show', $doctor->id) }}" type="button"
                                    class="btn btn-primary btn-flat">
                                     <i class="fas fa-eye"></i>
                                 </a>
-                                <a href="{{ route('admin.hospital.edit', $hospital->id) }}" type="button"
+                                <a href="{{ route('admin.hospital.edit', $doctor->id) }}" type="button"
                                    class="btn btn-success btn-flat">
                                     <i class="fas fa-edit"></i>
                                 </a>
-                                <form action="{{route('admin.hospital.destroy',$hospital->id)}}" method="POST">
+                                <form action="{{route('admin.hospital.destroy',$doctor->id)}}" method="POST">
                                     @csrf
                                     @method('DELETE')
                                     <button onclick="return confirm('Are you sure ?')"
