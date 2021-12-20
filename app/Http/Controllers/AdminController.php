@@ -5,13 +5,19 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
 class AdminController extends Controller
 {
     public function index()
     {
-        return view('admin.index');
+        $hospitals = User::where('role', 'hospital')->get();
+//        if (Auth::user()->role == 'admin'){
+//
+//        }
+        return view('admin.index', compact('hospitals'));
     }
 
     public function optimize()
@@ -34,6 +40,7 @@ class AdminController extends Controller
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
         $data['role'] = 'hospital';
+        $data['password'] = Hash::make($data['password']);
         User::create($data);
         return redirect()->route('admin.hospital.index')->with('message', 'Successfully added');
     }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Doctor;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class DoctorController extends Controller
@@ -16,7 +17,11 @@ class DoctorController extends Controller
      */
     public function index()
     {
-        $doctors = Doctor::paginate(10);
+        if (Auth::user()->role == 'admin') {
+            $doctors = Doctor::paginate(10);
+        } else {
+            $doctors = Doctor::where('user_id', Auth::user()->id)->paginate(10);
+        }
         return view('admin.doctor.index', compact('doctors'));
     }
 
@@ -33,7 +38,7 @@ class DoctorController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -45,13 +50,13 @@ class DoctorController extends Controller
             'phone' => ['required', 'string', 'max:255'],
             'user_id' => ['required', 'string', 'max:255'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'token' => ['required'],
+            '_token' => ['required'],
         ]);
 
         $data['password'] = Hash::make($data['password']);
         $data['token'] = Hash::make($data['_token']);
-        if($request->has('image')){
-            $data['image'] = $this->imageUpload($request,'uploads/doctor');
+        if ($request->has('image')) {
+            $data['image'] = $this->imageUpload($request, 'uploads/doctor');
         }
         Doctor::create($data);
         return redirect()->route('admin.doctor.index')->with('message', 'Successfully added');
@@ -60,7 +65,7 @@ class DoctorController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Doctor  $doctor
+     * @param \App\Models\Doctor $doctor
      * @return \Illuminate\Http\Response
      */
     public function show(Doctor $doctor)
@@ -71,7 +76,7 @@ class DoctorController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Doctor  $doctor
+     * @param \App\Models\Doctor $doctor
      * @return \Illuminate\Http\Response
      */
     public function edit(Doctor $doctor)
@@ -82,8 +87,8 @@ class DoctorController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Doctor  $doctor
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Models\Doctor $doctor
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Doctor $doctor)
@@ -93,7 +98,7 @@ class DoctorController extends Controller
             'position' => ['required', 'string', 'max:255'],
             'phone' => ['required', 'string', 'max:255'],
             'user_id' => ['required', 'string', 'max:255'],
-            'token' => ['required'],
+            '_token' => ['required'],
         ]);
 
         $data['password'] = Hash::make($data['password']);
@@ -105,7 +110,7 @@ class DoctorController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Doctor  $doctor
+     * @param \App\Models\Doctor $doctor
      * @return \Illuminate\Http\Response
      */
     public function destroy(Doctor $doctor)

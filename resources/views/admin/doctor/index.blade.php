@@ -51,4 +51,5 @@
             </table>
         </div>
     </div>
+            {{$doctors->links()}}
 @stop

@@ -41,14 +41,7 @@
                 <p class="text-danger">* {{$message}}</p>
                 @enderror
                 <input type="hidden" name="user_id" value="{{Auth::user()->id}}">
-                <div class="form-group mt-3">
-                    <label>Rasm (ixtiyoriy)</label>
-                    <input type="file" class="form-control" name="image">
-                </div>
-                @error ('image')
-                <p class="text-danger">* {{$message}}</p>
-                @enderror
-                <button type="submit" class="btn btn-primary">Saqlash</button>
+                <button type="submit" class="btn btn-primary">Tahrirlash</button>
             </form>
             {{--end form--}}
         </div>
