@@ -43,4 +43,20 @@ class AdminController extends Controller
         $hospitals = User::where('role','hospital')->get();
         return view('admin.hospital.index', compact('hospitals'));
     }
+
+    public function hospitalShow($id)
+    {
+        $hospital = User::findOrFail($id);
+        return view('admin.hospital.show', compact('hospital'));
+    }
+    public function hospitalEdit($id)
+    {
+        $hospital = User::findOrFail($id);
+        return view('admin.hospital.edit', compact('hospital'));
+    }
+    public function hospitalDestroy($id)
+    {
+        User::findOrFail($id)->delete();
+        return back()->with('message', 'Successfully deleted');
+    }
 }

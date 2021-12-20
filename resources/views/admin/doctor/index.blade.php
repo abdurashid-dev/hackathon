@@ -10,7 +10,7 @@
                     Hospitals
                 </div>
                 <div class="col-md-6 col-sm-12 text-end">
-                    <a class="btn btn-sm btn-primary" href="{{route('admin.hospital.create')}}"><i class="fas fa-plus"></i> Add</a>
+                    <a class="btn btn-sm btn-primary" href="{{route('admin.hospital')}}"><i class="fas fa-plus"></i> Add</a>
                 </div>
             </div>
         </div>

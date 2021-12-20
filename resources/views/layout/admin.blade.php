@@ -130,6 +130,15 @@
                         </a>
                     </li>
                     <li class="nav-item">
+                        <a href="{{route('admin.hospital.index')}}"
+                           class="nav-link @if(Str::substr(Request::getRequestUri(), 0, 15) == '/admin/hospital') active @endif">
+                            <i class="nav-icon fs-5 far fa-hospital"></i>
+                            <p>
+                                Hospitals
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         <a href="{{route('admin.optimize')}}" class="nav-link">
                             <i class="nav-icon fas fa-broom"></i>
                             <p>

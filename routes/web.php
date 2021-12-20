@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\DoctorController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -20,9 +21,17 @@ Route::get('/', function () {
 Route::prefix('admin')->name('admin.')->middleware('auth')->group(function (){
     Route::get('optimize', [AdminController::class, 'optimize'])->name('optimize');
     Route::get('/', [AdminController::class, 'index'])->name('index');
+//    Hospital
     Route::get('/hospital', [AdminController::class, 'hospitalTable'])->name('hospital.index');
-    Route::get('/create/hospital', [AdminController::class, 'hospital'])->name('hospital');
-    Route::post('/create/hospital', [AdminController::class, 'register'])->name('register');
+    Route::get('/hospital/{id}', [AdminController::class, 'hospitalShow'])->name('hospital.show');
+    Route::get('/hospital/{id}/edit', [AdminController::class, 'hospitalEdit'])->name('hospital.edit');
+    Route::post('/hospital/{id}/update', [AdminController::class, 'hospitalUpdate'])->name('hospital.update');
+    Route::delete('/hospital/{id}', [AdminController::class, 'hospitalDestroy'])->name('hospital.destroy');
+    Route::get('/create/hospital', [AdminController::class, 'hospital'])->name('hospital.create');
+    Route::post('/hospital/store', [AdminController::class, 'register'])->name('register');
+    Route::resources([
+        'doctor' => DoctorController::class,
+    ]);
 });
 
 Auth::routes([
