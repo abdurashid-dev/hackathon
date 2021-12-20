@@ -98,9 +98,6 @@ class DoctorController extends Controller
 
         $data['password'] = Hash::make($data['password']);
         $data['token'] = Hash::make($data['_token']);
-        if($request->has('image')){
-            $data['image'] = $this->imageUpload($request,'uploads/doctor');
-        }
         Doctor::create($data);
         return redirect()->route('admin.doctor.index')->with('message', 'Successfully added');
     }
