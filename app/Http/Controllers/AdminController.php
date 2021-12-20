@@ -63,6 +63,20 @@ class AdminController extends Controller
         $hospital = User::findOrFail($id);
         return view('admin.hospital.edit', compact('hospital'));
     }
+
+    public function hospitalUpdate(Request $request, User $user)
+    {
+        $data = $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'latitude' => ['required', 'string', 'max:255'],
+            'longitude' => ['required', 'string', 'max:255'],
+            'address' => ['required', 'string', 'max:255'],
+            'phone' => ['required', 'string', 'max:255'],
+        ]);
+        $data['role'] = 'hospital';
+        $user->update($data);
+        return redirect()->route('admin.hospital.index')->with('message', 'Successfully edited');
+    }
     public function hospitalDestroy($id)
     {
         User::findOrFail($id)->delete();
