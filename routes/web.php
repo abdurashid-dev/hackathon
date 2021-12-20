@@ -37,11 +37,7 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function (){
 });
 
 Auth::routes([
-<<<<<<< HEAD
    'register' => false,
-=======
-    'register' => false,
->>>>>>> 4880033f358ebcb64825197056af28dad2192adc
 ]);
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
