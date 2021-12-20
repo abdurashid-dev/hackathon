@@ -18,9 +18,9 @@
             <table class="table table-bordered">
                 <tr>
                     <th>ID</th>
-                    <th>Name</th>
-                    <th>Position</th>
-                    <th>Actions</th>
+                    <th>FIO</th>
+                    <th>Lavozimi</th>
+                    <th>Harakatlar</th>
                 </tr>
                 @foreach($doctors as $doctor)
                     <tr>
