@@ -19,6 +19,7 @@
                 <tr>
                     <th>ID</th>
                     <th>FIO</th>
+                    <th>Shifoxonasi</th>
                     <th>Lavozimi</th>
                     <th>Harakatlar</th>
                 </tr>
@@ -26,6 +27,7 @@
                     <tr>
                         <td>{{$doctor->id}}</td>
                         <td>{{$doctor->name}}</td>
+                        <td>{{$doctor->hospital->name}}</td>
                         <td>{{$doctor->position}}</td>
                         <td>
                             <div class="btn-group">

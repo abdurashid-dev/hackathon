@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Doctor;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
@@ -13,11 +14,12 @@ class AdminController extends Controller
 {
     public function index()
     {
+        if (Auth::user()->role == 'admin'){
+            $doctors = Doctor::all();
+        }
+        $doctors = Doctor::where('user_id', Auth::user()->id);
         $hospitals = User::where('role', 'hospital')->get();
-//        if (Auth::user()->role == 'admin'){
-//
-//        }
-        return view('admin.index', compact('hospitals'));
+        return view('admin.index', compact('hospitals', 'doctors'));
     }
 
     public function optimize()

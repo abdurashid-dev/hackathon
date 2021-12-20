@@ -18,10 +18,11 @@ class DoctorController extends Controller
     public function index()
     {
         if (Auth::user()->role == 'admin') {
-            $doctors = Doctor::paginate(10);
+            $doctors = Doctor::with('hospital')->paginate(10);
         } else {
             $doctors = Doctor::where('user_id', Auth::user()->id)->paginate(10);
         }
+//        dd($doctors);
         return view('admin.doctor.index', compact('doctors'));
     }
 
@@ -68,8 +69,10 @@ class DoctorController extends Controller
      * @param \App\Models\Doctor $doctor
      * @return \Illuminate\Http\Response
      */
-    public function show(Doctor $doctor)
+    public function show($id)
     {
+        $doctor = Doctor::findOrFail($id)->with('hospital')->get();
+        dd($doctor);
         return view('admin.doctor.show', compact('doctor'));
     }
 
