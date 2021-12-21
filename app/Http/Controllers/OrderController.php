@@ -24,7 +24,6 @@ class OrderController extends Controller
            'message'=>'Success',
            'data'=> $data
         ]);
-
     }
 
     public function update(Request $request)
