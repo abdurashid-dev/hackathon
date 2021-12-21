@@ -107,6 +107,7 @@ class DoctorController extends Controller
         return view('admin.doctor.edit', compact('doctor'));
     }
 
+
     /**
      * Update the specified resource in storage.
      *
