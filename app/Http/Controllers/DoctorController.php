@@ -10,6 +10,27 @@ use Illuminate\Support\Facades\Hash;
 
 class DoctorController extends Controller
 {
+
+    public function doctorApi(Request $request)
+    {
+
+        $doctor = Doctor::where('phone', '+'.$request->phone)->first();
+        // dd($request);
+        if (Hash::check( $doctor->password , $request->password)) {
+        // if (1 == 1) {
+            $response = [
+                "success" => true,
+                "message" => "Succcess",
+                "data" => $doctor,
+            ];
+            
+        }else{
+            $response['success'] = false;
+            $response['message'] = 'Incorrect password';
+            $response['data'] = '';
+        }
+        return $response;
+    }
     /**
      * Display a listing of the resource.
      *
