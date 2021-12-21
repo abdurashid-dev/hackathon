@@ -16,7 +16,7 @@ class DoctorController extends Controller
 
         $response = [
             "success" => false,
-            "message" => "No data found",
+            "message" => "No data",
             "data" => '',
         ];
     
