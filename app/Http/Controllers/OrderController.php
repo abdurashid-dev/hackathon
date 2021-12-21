@@ -17,5 +17,14 @@ class OrderController extends Controller
         $data->longitude = $request->longitude;
         $data->condition = $request->condition;
         $data->save();
+        return response()->json([
+           'status'=>200,
+           'message'=>'Succes'
+        ]);
+    }
+
+    public function update(Request $request)
+    {
+
     }
 }
