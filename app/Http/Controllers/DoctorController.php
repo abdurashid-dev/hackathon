@@ -20,21 +20,22 @@ class DoctorController extends Controller
             "data" => '',
         ];
 
-        if ($doctor = Doctor::where('phone', '+'.$request->phone)->first()) {
-            if (Hash::check( $request->password , $doctor->password)) {
-                
+        if ($doctor = Doctor::where('phone', '+' . $request->phone)->first()) {
+            if (Hash::check($request->password, $doctor->password)) {
+
                 $response['success'] = true;
                 $response['message'] = 'Success';
                 $response['data'] = $doctor;
-                
-            }else{
+
+            } else {
                 $response['success'] = false;
                 $response['message'] = 'Incorrect password';
                 $response['data'] = '';
             }
         }
-        return $response;
+        return response()->json($response);
     }
+
     /**
      * Display a listing of the resource.
      *
