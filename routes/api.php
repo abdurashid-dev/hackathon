@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\DoctorController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -21,5 +22,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::post('/order', [OrderController::class, 'store']);
-Route::get('/order/update', [OrderController::class, 'update']);
+Route::put('/order/update', [OrderController::class, 'update']);
 Route::post('/doctor', [DoctorController::class, 'doctorApi']);
+Route::post('/comment', [CommentController::class, 'store']);
