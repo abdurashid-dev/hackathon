@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Comment;
 use App\Http\Controllers\Controller;
+use App\Models\Order;
 use Illuminate\Http\Request;
 
 class CommentController extends Controller
@@ -36,7 +37,19 @@ class CommentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $order = Order::findOrFail($request->order_id);
+        $comment = new Comment();
+        $comment->order_id = $request->order_id;
+        $comment->doctor_id = $order->doctor_id;
+        $comment->rating = $request->rating;
+        $comment->comment = $request->comment;
+        $comment->isCorrupted = $request->isCorrupted;
+        $comment->save();
+        return response()->json([
+            'success' => true,
+            'message' => 'success',
+            'data' => $comment,
+        ]);
     }
 
     /**

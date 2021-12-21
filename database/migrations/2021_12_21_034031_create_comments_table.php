@@ -17,6 +17,9 @@ class CreateCommentsTable extends Migration
             $table->id();
             $table->string('order_id');
             $table->string('doctor_id');
+            $table->string('rating');
+            $table->string('comment');
+            $table->boolean('isCorrupted');
             $table->timestamps();
         });
     }
