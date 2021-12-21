@@ -19,7 +19,7 @@ class DoctorController extends Controller
             "message" => "No data",
             "data" => '',
         ];
-    
+
         if ($doctor = Doctor::where('phone', '+'.$request->phone)->first()) {
             if (Hash::check( $request->password , $doctor->password)) {
                 
@@ -143,6 +143,7 @@ class DoctorController extends Controller
      */
     public function destroy(Doctor $doctor)
     {
-        //
+        $doctor->delete();
+        return back();
     }
 }
