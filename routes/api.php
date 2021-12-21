@@ -21,4 +21,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::post('/order', [OrderController::class, 'store']);
-Route::get('/doctor', [DoctorController::class, 'doctorApi']);
+Route::post('/doctor', [DoctorController::class, 'doctorApi']);
