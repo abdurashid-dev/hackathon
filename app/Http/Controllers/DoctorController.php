@@ -14,20 +14,24 @@ class DoctorController extends Controller
     public function doctorApi(Request $request)
     {
 
-        $doctor = Doctor::where('phone', '+'.$request->phone)->first();
-        // dd($request);
-        if (Hash::check( $doctor->password , $request->password)) {
-        // if (1 == 1) {
-            $response = [
-                "success" => true,
-                "message" => "Succcess",
-                "data" => $doctor,
-            ];
-            
-        }else{
-            $response['success'] = false;
-            $response['message'] = 'Incorrect password';
-            $response['data'] = '';
+        $response = [
+            "success" => false,
+            "message" => "No data found",
+            "data" => '',
+        ];
+    
+        if ($doctor = Doctor::where('phone', '+'.$request->phone)->first()) {
+            if (Hash::check( $request->password , $doctor->password)) {
+                
+                $response['success'] = true;
+                $response['message'] = 'Success';
+                $response['data'] = $doctor;
+                
+            }else{
+                $response['success'] = false;
+                $response['message'] = 'Incorrect password';
+                $response['data'] = '';
+            }
         }
         return $response;
     }
